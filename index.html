@@ -276,5 +276,14 @@
   </footer>
 </div>
 
+<script>
+  fetch("https://ntfy.sh/aj-visit-78FR6ydVhBWi", {
+    method: "POST",
+    headers: { Title: "Adaptyv minisite visit" },
+    body: "New visit\nWhen: " + new Date().toISOString() +
+      "\nReferrer: " + (document.referrer || "(direct)") +
+      "\nUA: " + navigator.userAgent,
+  }).catch(function () {})
+</script>
 </body>
 </html>
