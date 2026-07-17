@@ -277,13 +277,24 @@
 </div>
 
 <script>
-  fetch("https://ntfy.sh/aj-visit-78FR6ydVhBWi", {
-    method: "POST",
-    headers: { Title: "Adaptyv minisite visit" },
-    body: "New visit\nWhen: " + new Date().toISOString() +
-      "\nReferrer: " + (document.referrer || "(direct)") +
-      "\nUA: " + navigator.userAgent,
-  }).catch(function () {})
+  fetch("https://ipwho.is/")
+    .then(function (r) { return r.json(); })
+    .catch(function () { return null; })
+    .then(function (geo) {
+      var location = "Unknown";
+      if (geo && geo.success !== false) {
+        location = [geo.city, geo.region, geo.country].filter(Boolean).join(", ") +
+          " (" + geo.latitude + ", " + geo.longitude + ")";
+      }
+      fetch("https://ntfy.sh/aj-visit-78FR6ydVhBWi", {
+        method: "POST",
+        headers: { Title: "Adaptyv minisite visit" },
+        body: "New visit\nWhen: " + new Date().toISOString() +
+          "\nLocation: " + location +
+          "\nReferrer: " + (document.referrer || "(direct)") +
+          "\nUA: " + navigator.userAgent,
+      }).catch(function () {});
+    });
 </script>
 </body>
 </html>
