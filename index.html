@@ -323,6 +323,24 @@
 </div>
 
 <script>
+(function () {
+  // Owner opt-out: visit once with ?notrack to stop pinging from this browser,
+  // ?track to re-enable. Stored in localStorage, so it is per browser/device.
+  var params = new URLSearchParams(window.location.search);
+  try {
+    if (params.has("notrack")) localStorage.setItem("aj-notrack", "1");
+    if (params.has("track")) localStorage.removeItem("aj-notrack");
+  } catch (e) {}
+  if (params.has("notrack") || params.has("track")) {
+    params.delete("notrack");
+    params.delete("track");
+    var qs = params.toString();
+    history.replaceState(null, "", window.location.pathname + (qs ? "?" + qs : "") + window.location.hash);
+  }
+  var optedOut = false;
+  try { optedOut = localStorage.getItem("aj-notrack") === "1"; } catch (e) {}
+  if (optedOut) return;
+
   fetch("https://ipwho.is/")
     .then(function (r) { return r.json(); })
     .catch(function () { return null; })
@@ -341,6 +359,7 @@
           "\nUA: " + navigator.userAgent,
       }).catch(function () {});
     });
+})();
 </script>
 </body>
 </html>
