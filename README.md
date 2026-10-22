@@ -1,7 +1,7 @@
 # Antoine Jasnault — Application for Adaptyv Bio
 
 Single-page microsite for a job application: CV download, LinkedIn, and links to
-three live product demos (with their GitHub repos) that demonstrate hands-on
+four live product demos (with their GitHub repos) that demonstrate hands-on
 supply chain automation work.
 
 Live: https://ajasnault.github.io/adaptyv-bio-application/
